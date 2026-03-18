@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evandro Bachmann — Plano Semanal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #F5C400;
+  --gold2: #E0A800;
+  --dark: #0e0e0e;
+  --dark2: #161616;
+  --dark3: #1f1f1f;
+  --mid: #2a2a2a;
+  --border: #333;
+  --text: #e8e8e8;
+  --muted: #888;
+  --carbo-normal: #F5C400;
+  --carbo-half: #3b82f6;
+  --carbo-half-bg: rgba(59,130,246,0.1);
+  --carbo-normal-bg: rgba(245,196,0,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+/* ─── HEADER ─── */
+header {
+  background: var(--dark2);
+  border-bottom: 3px solid var(--gold);
+  padding: 28px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.logo-b {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  color: #000;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 4px;
+  letter-spacing: -1px;
+}
+
+.logo-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; color: var(--muted);
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2.4rem, 8vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-align: center;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.subtitle {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.stat-pill {
+  background: var(--mid);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.stat-pill span {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ─── NAV TABS ─── */
+nav {
+  display: flex;
+  overflow-x: auto;
+  background: var(--dark2);
+  border-bottom: 1px solid var(--border);
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav::-webkit-scrollbar { display: none; }
+
+.tab {
+  flex: 0 0 auto;
+  padding: 14px 18px 12px;
+  cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 3px solid transparent;
+  transition: all .2s;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.tab-day { font-size: 10px; font-weight: 400; color: #555; }
+.tab.active { color: var(--text); border-color: var(--gold); }
+.tab.active .tab-day { color: var(--gold); }
+.tab:hover:not(.active) { color: var(--text); }
+
+/* ─── DAY PANEL ─── */
+.day-panel { display: none; padding: 0; }
+.day-panel.active { display: block; }
+
+.day-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.day-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2rem, 7vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.day-title em { font-style: italic; color: var(--gold); }
+.day-desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; padding-top: 4px; }
+
+.badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.badge-gold { background: var(--gold); color: #000; }
+.badge-blue { background: var(--carbo-half); color: #fff; }
+.badge-dark { background: var(--mid); color: var(--muted); border: 1px solid var(--border); }
+
+/* carb alert banner */
+.carb-banner {
+  margin: 16px 20px 0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border-left: 4px solid;
+}
+
+.carb-banner.normal {
+  background: var(--carbo-normal-bg);
+  border-color: var(--gold);
+  color: #c9a800;
+}
+
+.carb-banner.half {
+  background: var(--carbo-half-bg);
+  border-color: var(--carbo-half);
+  color: #60a5fa;
+}
+
+.carb-banner strong { display: block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
+
+/* ─── SECTIONS ─── */
+.sections { padding: 0 0 40px; }
+
+.section {
+  margin: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  background: var(--dark2);
+  position: sticky;
+  top: 56px;
+  z-index: 10;
+}
+
+.section-icon {
+  font-size: 18px;
+  width: 32px; text-align: center;
+}
+
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text);
+  flex: 1;
+}
+
+.section-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+.chevron {
+  color: var(--muted);
+  font-size: 12px;
+  transition: transform .2s;
+}
+
+.section.open .chevron { transform: rotate(180deg); }
+
+.section-body {
+  display: none;
+  padding: 0 20px 20px;
+}
+
+.section.open .section-body { display: block; }
+
+/* ─── EXERCISES ─── */
+.exercise-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+
+.exercise-card {
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ex-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 800;
+  color: var(--gold);
+  min-width: 20px;
+  margin-top: 1px;
+}
+
+.ex-body { flex: 1; }
+
+.ex-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.ex-sets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.set-pill {
+  font-size: 10px;
+  background: var(--mid);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+.set-pill.main {
+  background: rgba(245,196,0,0.12);
+  border-color: rgba(245,196,0,0.3);
+  color: var(--gold2);
+}
+
+/* ─── SUPPLEMENTS ─── */
+.suppl-list { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+
+.suppl-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--dark3);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  gap: 8px;
+}
+
+.suppl-name { font-weight: 500; font-size: 13px; }
+.suppl-dose { font-size: 11px; color: var(--muted); text-align: right; flex-shrink: 0; }
+.suppl-dose strong { color: var(--gold); display: block; }
+
+/* ─── DIET ─── */
+.meal-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+
+.meal-card {
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.meal-card-header {
+  background: var(--mid);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meal-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.meal-time {
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.meal-options {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.opt-block {
+  border-left: 2px solid var(--gold);
+  padding-left: 10px;
+}
+
+.opt-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.opt-text {
+  font-size: 12px;
+  color: #bbb;
+  line-height: 1.6;
+}
+
+.opt-text .qty { color: var(--text); font-weight: 600; }
+
+.half-notice {
+  margin: 0 14px 12px;
+  padding: 8px 10px;
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.3);
+  border-radius: 6px;
+  font-size: 11px;
+  color: #60a5fa;
+  font-weight: 500;
+}
+
+.diet-note {
+  margin-top: 14px;
+  padding: 12px;
+  background: var(--dark3);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.diet-note strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ─── AEROBIC BADGE ─── */
+.aerobic-banner {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  background: rgba(245,196,0,0.08);
+  border: 1px solid rgba(245,196,0,0.25);
+  border-radius: 8px;
+  font-size: 13px;
+  color: #c9a800;
+  font-weight: 500;
+}
+
+.aerobic-banner strong { color: var(--gold); }
+
+/* ─── REST ─── */
+.rest-block {
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.rest-emoji { font-size: 48px; margin-bottom: 12px; }
+.rest-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
+.rest-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* RESPONSIVE */
+@media (max-width: 400px) {
+  .tab { padding: 12px 12px 10px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-line">
+    <div class="logo-b">B</div>
+    <div class="logo-name">Bitencourt Classic Physique</div>
+  </div>
+  <h1>EVANDRO <em>BACHMANN</em></h1>
+  <div class="subtitle">Rotina Upper Lower · Hipertrofia · Avançado · Objetivo: Emagrecimento</div>
+  <div class="stats-row">
+    <div class="stat-pill"><span>5</span> treinos/semana</div>
+    <div class="stat-pill"><span>5</span> refeições/dia</div>
+    <div class="stat-pill"><span>40 min</span> aeróbico pós treino</div>
+    <div class="stat-pill"><span>4L</span> água + <span>1L</span> chá cavalinha/hibisco</div>
+    <div class="stat-pill"><span>1g</span> sal/refeição</div>
+  </div>
+</header>
+
+<nav>
+  <div class="tab active" onclick="showDay(0)">Seg<div class="tab-day">Upper A</div></div>
+  <div class="tab" onclick="showDay(1)">Ter<div class="tab-day">Lower A</div></div>
+  <div class="tab" onclick="showDay(2)">Qua<div class="tab-day">Upper B</div></div>
+  <div class="tab" onclick="showDay(3)">Qui<div class="tab-day">Lower B</div></div>
+  <div class="tab" onclick="showDay(4)">Sex<div class="tab-day">Upper C</div></div>
+  <div class="tab" onclick="showDay(5)">Sáb<div class="tab-day">Descanso</div></div>
+  <div class="tab" onclick="showDay(6)">Dom<div class="tab-day">Descanso</div></div>
+</nav>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SEGUNDA                                         -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="day-panel active" id="day-0">
+  <div class="day-header">
+    <div>
+      <div class="day-title">SEGUNDA-<em>FEIRA</em></div>
+      <div class="day-desc">Costa · Peito · Ombro · Tríceps — Intervalos: 120s</div>
+    </div>
+    <div class="badges">
+      <div class="badge badge-dark">Upper A</div>
+      <div class="badge badge-gold">Carbo Normal</div>
+    </div>
+  </div>
+  <div class="carb-banner normal">
+    <strong>🟡 Carboidrato Normal</strong>
+    Carboidrato completo em todas as refeições hoje.
+  </div>
+  <div class="sections">
+
+    <!-- TREINO -->
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🏋️</div>
+        <div><div class="section-label">Treino — Upper A</div><div class="section-sub">Costa · Peito · Ombro · Tríceps</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="exercise-list">
+          <div class="exercise-card"><div class="ex-num">01</div><div class="ex-body"><div class="ex-name">Crucifixo Máquina</div><div class="ex-sets"><span class="set-pill">aquec. 15 reps</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps · 100%</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">02</div><div class="ex-body"><div class="ex-name">Puxada Aberta Barra Reta</div><div class="ex-sets"><span class="set-pill">aquec. 15 reps</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps · 100%</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">03</div><div class="ex-body"><div class="ex-name">Supino Máquina (Pronada)</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps · 100%</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">04</div><div class="ex-body"><div class="ex-name">Remada Baixa Triângulo</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps · 100%</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">05</div><div class="ex-body"><div class="ex-name">Supino Reto Smith</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps · 100%</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">06</div><div class="ex-body"><div class="ex-name">Remada Cavalinho (Neutra)</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps · 100%</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">07</div><div class="ex-body"><div class="ex-name">Elevação Lateral Halteres</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps · 100%</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">08</div><div class="ex-body"><div class="ex-name">Tríceps Polia Barra W</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps · 100%</span></div></div></div>
+        </div>
+        <div class="aerobic-banner">🔥 <strong>40 min aeróbico</strong> pós treino</div>
+      </div>
+    </div>
+
+    <!-- SUPLEMENTOS -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">💊</div>
+        <div><div class="section-label">Suplementos</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="suppl-list">
+          <div class="suppl-row"><span class="suppl-name">Glifage XR 500mg</span><span class="suppl-dose"><strong>½ comprimido</strong>pós café da manhã</span></div>
+          <div class="suppl-row"><span class="suppl-name">Ômega 3</span><span class="suppl-dose"><strong>3 cápsulas</strong>pós almoço</span></div>
+          <div class="suppl-row"><span class="suppl-name">Multivitamínico</span><span class="suppl-dose"><strong>1 cápsula</strong>1 refeição</span></div>
+          <div class="suppl-row"><span class="suppl-name">Vitamina C 1g</span><span class="suppl-dose"><strong>1 cápsula</strong>1 refeição</span></div>
+          <div class="suppl-row"><span class="suppl-name">Vitamina B12</span><span class="suppl-dose"><strong>1 cápsula</strong>1 refeição</span></div>
+          <div class="suppl-row"><span class="suppl-name">Creatina</span><span class="suppl-dose"><strong>10g</strong></span></div>
+          <div class="suppl-row"><span class="suppl-name">Morosil® 500mg</span><span class="suppl-dose"><strong>1 cápsula</strong>ao acordar</span></div>
+          <div class="suppl-row"><span class="suppl-name">Termogênico Abelhinha</span><span class="suppl-dose"><strong>2 cápsulas</strong>antes do treino</span></div>
+          <div class="suppl-row"><span class="suppl-name">Cactin 500mg</span><span class="suppl-dose"><strong>1 cápsula</strong>antes do treino</span></div>
+          <div class="suppl-row"><span class="suppl-name">Ioimbina 5mg</span><span class="suppl-dose"><strong>1+1 cápsulas</strong>antes treino + após almoço</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIETA -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🥩</div>
+        <div><div class="section-label">Alimentação</div><div class="section-sub">Carbo Normal — todas as refeições completas</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="meal-grid" id="diet-normal"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- TERÇA                                           -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="day-panel" id="day-1">
+  <div class="day-header">
+    <div>
+      <div class="day-title">TERÇA-<em>FEIRA</em></div>
+      <div class="day-desc">Posterior · Quadríceps — Intervalos: 120s</div>
+    </div>
+    <div class="badges">
+      <div class="badge badge-dark">Lower A</div>
+      <div class="badge badge-blue">Carbo ½</div>
+    </div>
+  </div>
+  <div class="carb-banner half">
+    <strong>🔵 Carbo Reduzido</strong>
+    Reduzir pela metade os carboidratos marcados em vermelho em todas as refeições hoje.
+  </div>
+  <div class="sections">
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🦵</div>
+        <div><div class="section-label">Treino — Lower A</div><div class="section-sub">Posterior · Quadríceps</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="exercise-list">
+          <div class="exercise-card"><div class="ex-num">01</div><div class="ex-body"><div class="ex-name">Stiff com Halteres</div><div class="ex-sets"><span class="set-pill">aquec. 15 reps</span><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">02</div><div class="ex-body"><div class="ex-name">Mesa Flexora</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">03</div><div class="ex-body"><div class="ex-name">Cadeira Flexora</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">04</div><div class="ex-body"><div class="ex-name">Leg Press Horizontal</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">05</div><div class="ex-body"><div class="ex-name">Abdução de Quadril Máquina</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">06</div><div class="ex-body"><div class="ex-name">Panturrilha no Leg Press</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">07</div><div class="ex-body"><div class="ex-name">Panturrilha Sentado Máquina</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+        </div>
+        <div class="aerobic-banner">🔥 <strong>40 min aeróbico</strong> pós treino</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">💊</div>
+        <div><div class="section-label">Suplementos</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="suppl-list" id="suppl-copy-1"></div></div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🥩</div>
+        <div><div class="section-label">Alimentação</div><div class="section-sub">Carbo ½ — reduzir carboidratos pela metade</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="meal-grid" id="diet-half-1"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- QUARTA                                          -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="day-panel" id="day-2">
+  <div class="day-header">
+    <div>
+      <div class="day-title">QUARTA-<em>FEIRA</em></div>
+      <div class="day-desc">Costa · Peito · Ombro · Bíceps — Intervalos: 120s</div>
+    </div>
+    <div class="badges">
+      <div class="badge badge-dark">Upper B</div>
+      <div class="badge badge-gold">Carbo Normal</div>
+    </div>
+  </div>
+  <div class="carb-banner normal">
+    <strong>🟡 Carboidrato Normal</strong>
+    Carboidrato completo em todas as refeições hoje.
+  </div>
+  <div class="sections">
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🏋️</div>
+        <div><div class="section-label">Treino — Upper B</div><div class="section-sub">Costa · Peito · Ombro · Bíceps</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="exercise-list">
+          <div class="exercise-card"><div class="ex-num">01</div><div class="ex-body"><div class="ex-name">Supino Inclinado Smith</div><div class="ex-sets"><span class="set-pill">aquec. 15 reps</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">02</div><div class="ex-body"><div class="ex-name">Puxada Neutra Triângulo</div><div class="ex-sets"><span class="set-pill">aquec. 15 reps</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">03</div><div class="ex-body"><div class="ex-name">Banco Supino Declinado</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">04</div><div class="ex-body"><div class="ex-name">Remada Baixa (Pronada)</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">05</div><div class="ex-body"><div class="ex-name">Crucifixo Inverso Polia Média</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">06</div><div class="ex-body"><div class="ex-name">Face Pull</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">07</div><div class="ex-body"><div class="ex-name">Encolhimento Ombros Halteres</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">08</div><div class="ex-body"><div class="ex-name">Rosca Alternada Halteres</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+        </div>
+        <div class="aerobic-banner">🔥 <strong>40 min aeróbico</strong> pós treino</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">💊</div><div><div class="section-label">Suplementos</div></div><div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="suppl-list" id="suppl-copy-2"></div></div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🥩</div>
+        <div><div class="section-label">Alimentação</div><div class="section-sub">Carbo Normal</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="meal-grid" id="diet-normal-2"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- QUINTA                                          -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="day-panel" id="day-3">
+  <div class="day-header">
+    <div>
+      <div class="day-title">QUINTA-<em>FEIRA</em></div>
+      <div class="day-desc">Quadríceps · Posterior — Intervalos: 120s (panturrilha 60s)</div>
+    </div>
+    <div class="badges">
+      <div class="badge badge-dark">Lower B</div>
+      <div class="badge badge-blue">Carbo ½</div>
+    </div>
+  </div>
+  <div class="carb-banner half">
+    <strong>🔵 Carbo Reduzido</strong>
+    Reduzir pela metade os carboidratos em todas as refeições hoje.
+  </div>
+  <div class="sections">
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🦵</div>
+        <div><div class="section-label">Treino — Lower B</div><div class="section-sub">Quadríceps · Posterior</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="exercise-list">
+          <div class="exercise-card"><div class="ex-num">01</div><div class="ex-body"><div class="ex-name">Abdução Quadril (Corpo à Frente)</div><div class="ex-sets"><span class="set-pill">aquec. 15 reps</span><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">02</div><div class="ex-body"><div class="ex-name">Cadeira Extensora</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">03</div><div class="ex-body"><div class="ex-name">Agachamento Hack</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">04</div><div class="ex-body"><div class="ex-name">Leg Press 45°</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">05</div><div class="ex-body"><div class="ex-name">Cadeira Flexora</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">06</div><div class="ex-body"><div class="ex-name">Mesa Flexora</div><div class="ex-sets"><span class="set-pill">12 reps · 70%</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">07</div><div class="ex-body"><div class="ex-name">Panturrilha Sentado Máquina</div><div class="ex-sets"><span class="set-pill">12 reps · 70% · 60s</span><span class="set-pill main">10 reps · 60s</span><span class="set-pill main">10–8 reps · 60s</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">08</div><div class="ex-body"><div class="ex-name">Panturrilha no Step</div><div class="ex-sets"><span class="set-pill main">4× falha · peso corporal · 60s</span></div></div></div>
+        </div>
+        <div class="aerobic-banner">🔥 <strong>40 min aeróbico</strong> pós treino</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">💊</div><div><div class="section-label">Suplementos</div></div><div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="suppl-list" id="suppl-copy-3"></div></div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🥩</div>
+        <div><div class="section-label">Alimentação</div><div class="section-sub">Carbo ½ — reduzir carboidratos pela metade</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="meal-grid" id="diet-half-3"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SEXTA                                           -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="day-panel" id="day-4">
+  <div class="day-header">
+    <div>
+      <div class="day-title">SEXTA-<em>FEIRA</em></div>
+      <div class="day-desc">Costa · Peito · Ombro · Bíceps · Tríceps — Intervalos: 120s</div>
+    </div>
+    <div class="badges">
+      <div class="badge badge-dark">Upper C</div>
+      <div class="badge badge-gold">Carbo Normal</div>
+    </div>
+  </div>
+  <div class="carb-banner normal">
+    <strong>🟡 Carboidrato Normal</strong>
+    Carboidrato completo em todas as refeições hoje.
+  </div>
+  <div class="sections">
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🏋️</div>
+        <div><div class="section-label">Treino — Upper C</div><div class="section-sub">Costa · Peito · Ombro · Bíceps · Tríceps</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="exercise-list">
+          <div class="exercise-card"><div class="ex-num">01</div><div class="ex-body"><div class="ex-name">Puxada Fechada Barra Reta</div><div class="ex-sets"><span class="set-pill">aquec. 15 reps</span><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">02</div><div class="ex-body"><div class="ex-name">Crucifixo Inclinado na Polia</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">03</div><div class="ex-body"><div class="ex-name">Remada Máquina (Neutra)</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">04</div><div class="ex-body"><div class="ex-name">Crossover Polia Baixa</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">05</div><div class="ex-body"><div class="ex-name">Crucifixo Inverso Máquina</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">06</div><div class="ex-body"><div class="ex-name">Elevação Lateral Inclinada</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">07</div><div class="ex-body"><div class="ex-name">Tríceps Testa Polia Barra Reta</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+          <div class="exercise-card"><div class="ex-num">08</div><div class="ex-body"><div class="ex-name">Rosca Direta Polia (Barra W)</div><div class="ex-sets"><span class="set-pill main">10 reps · 100%</span><span class="set-pill main">10–8 reps</span></div></div></div>
+        </div>
+        <div class="aerobic-banner">🔥 <strong>40 min aeróbico</strong> pós treino</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">💊</div><div><div class="section-label">Suplementos</div></div><div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="suppl-list" id="suppl-copy-4"></div></div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🥩</div>
+        <div><div class="section-label">Alimentação</div><div class="section-sub">Carbo Normal</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="meal-grid" id="diet-normal-4"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SÁBADO                                          -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="day-panel" id="day-5">
+  <div class="day-header">
+    <div>
+      <div class="day-title">SÁBADO — <em>Descanso</em></div>
+      <div class="day-desc">Menor volume · Sem treino</div>
+    </div>
+    <div class="badges">
+      <div class="badge badge-dark">Descanso</div>
+      <div class="badge badge-blue">Carbo ½</div>
+    </div>
+  </div>
+  <div class="carb-banner half">
+    <strong>🔵 Carbo Reduzido</strong>
+    Reduzir pela metade os carboidratos em todas as refeições hoje.
+  </div>
+  <div class="sections">
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">😴</div>
+        <div><div class="section-label">Sem Treino</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="rest-block">
+          <div class="rest-emoji">🛌</div>
+          <div class="rest-title">Dia de Descanso</div>
+          <div class="rest-desc">Recuperação muscular.<br>Mantenha hidratação e alimentação.</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">💊</div><div><div class="section-label">Suplementos</div></div><div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="suppl-list" id="suppl-copy-5"></div></div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🥩</div>
+        <div><div class="section-label">Alimentação</div><div class="section-sub">Carbo ½</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="meal-grid" id="diet-half-5"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- DOMINGO                                         -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="day-panel" id="day-6">
+  <div class="day-header">
+    <div>
+      <div class="day-title">DOMINGO — <em>Descanso</em></div>
+      <div class="day-desc">Menor volume · 5ª refeição = Refeição Livre</div>
+    </div>
+    <div class="badges">
+      <div class="badge badge-dark">Descanso</div>
+      <div class="badge badge-blue">Carbo ½</div>
+    </div>
+  </div>
+  <div class="carb-banner half">
+    <strong>🔵 Carbo Reduzido + Refeição Livre</strong>
+    Reduzir pela metade os carboidratos. <strong>5ª refeição:</strong> refeição livre!
+  </div>
+  <div class="sections">
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🎉</div>
+        <div><div class="section-label">Sem Treino</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="rest-block">
+          <div class="rest-emoji">🍕</div>
+          <div class="rest-title">Refeição Livre</div>
+          <div class="rest-desc">No jantar (5ª refeição), substitua pelo que quiser. Aproveita!</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">💊</div><div><div class="section-label">Suplementos</div></div><div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="suppl-list" id="suppl-copy-6"></div></div>
+    </div>
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🥩</div>
+        <div><div class="section-label">Alimentação</div><div class="section-sub">Carbo ½ + Refeição Livre no Jantar</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="section-body"><div class="meal-grid" id="diet-half-6"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── NAVIGATION ───────────────────────────────────
+function showDay(i) {
+  document.querySelectorAll('.day-panel').forEach((p,idx) => {
+    p.classList.toggle('active', idx === i);
+  });
+  document.querySelectorAll('.tab').forEach((t,idx) => {
+    t.classList.toggle('active', idx === i);
+  });
+}
+
+function toggleSection(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+// ─── DIET DATA ────────────────────────────────────
+const meals = [
+  {
+    name: '1ª Refeição',
+    time: '08:00',
+    opts: [
+      {
+        title: 'Opção 1 — Shake/Shake',
+        items: [
+          '<span class="qty">Carbo:</span> 40g aveia ou farinha de arroz, ou 40g bolacha de arroz, ou 2 Magic toast (18,3g/porção)',
+          '<span class="qty">Proteína:</span> 30g whey (c/ bolacha de arroz/Magic toast/shake) <em>ou</em> 20g whey + 1 ovo (bolinho micro-ondas/panqueca de aveia)',
+          '<span class="qty">Iogurte/Leite:</span> 200ml iogurte light (c/ bolacha/Magic toast) <em>ou</em> 100ml iogurte light + 100ml leite zero lactose',
+          '<span class="qty">Carbo rápido:</span> 20g doce de leite/leite condensado, 30g sucrilhos ou 20g mel',
+          '<span class="qty">Fruta:</span> 100g banana <em>ou</em> 200g mamão/abacaxi/maçã/uva <em>ou</em> 300g melancia/morango/melão',
+        ]
+      },
+      {
+        title: 'Opção 2 — Refeição Sólida',
+        items: [
+          '<span class="qty">Carbo:</span> 40g tapioca ou 125g cuscuz ou 2 fatias pão normal ou 1 pão francês ou 1 Rap 10',
+          '<span class="qty">Proteína:</span> ½ lata atum ou 80g carne moída/frango/lombo/tilápia ou 3 ovos ou 30g carne/frango + 2 ovos',
+          '<span class="qty">Embutidos:</span> 1 fatia presunto ou 20g peito de peru ou 15g lombo canadense ou 10g mortadela/bacon/salame/pepperoni',
+          '<span class="qty">Queijo:</span> 15g Gouda/Prato/Cheddar/Parmesão/Gorgonzola/Brie/provolone, ou 20g requeijão light/cream cheese light/creme de ricota, ou 30g cottage LACFREE',
+          '<span class="qty">Carbo rápido:</span> 20g doce de leite/leite condensado, 30g sucrilhos ou 20g mel',
+          '<span class="qty">Iogurte/Leite:</span> 200ml iogurte light ou leite zero lactose',
+          '<span class="qty">Fruta:</span> 100g banana <em>ou</em> 200g mamão/abacaxi/maçã/uva',
+        ]
+      }
+    ]
+  },
+  {
+    name: '2ª Refeição',
+    time: '12:00',
+    opts: [
+      {
+        title: 'Opção 1 — Completa',
+        items: [
+          '<span class="qty">Carbo:</span> 200g arroz ou 200g aipim ou 160g macarrão ou 340g batata inglesa',
+          '<span class="qty">Proteína:</span> 120g carne/frango/lombo/tilápia/salmão/atum ou 4 ovos',
+          '<span class="qty">Salada:</span> 100g alface/rúcula/agrião/espinafre/acelga (se quiser)',
+          '<span class="qty">Legumes:</span> 100g tomate/pepino/abóbora ou 50g abobrinha/cenoura/beterraba/cebola/brócolis/pimentão (se quiser)',
+        ]
+      },
+      {
+        title: 'Opção 2 — Com Feijão',
+        items: [
+          '<span class="qty">Carbo:</span> 120g arroz ou 120g aipim ou 100g macarrão ou 200g batata inglesa',
+          '<span class="qty">Feijão:</span> 100g feijão',
+          '<span class="qty">Proteína:</span> 120g carne/frango/lombo/tilápia/salmão/atum ou 4 ovos',
+        ]
+      },
+      {
+        title: 'Opção 3 — Lanche',
+        items: [
+          '<span class="qty">Carbo:</span> 2 fatias pão normal ou 1 pão francês ou 1 Rap 10',
+          '<span class="qty">Proteína:</span> ½ lata atum ou 80g carne moída/frango/lombo/tilápia ou 2 ovos ou 30g carne/frango + 1 ovo',
+          '<span class="qty">Embutidos:</span> 1 fatia presunto ou 20g peito de peru ou 15g lombo canadense ou 10g mortadela/bacon/salame/pepperoni',
+          '<span class="qty">Queijo:</span> 15g Gouda/Prato/Cheddar/Parmesão/Gorgonzola/Brie/provolone, ou 20g requeijão light/cream cheese light/creme de ricota, ou 30g cottage LACFREE',
+        ]
+      }
+    ]
+  },
+  {
+    name: '3ª Refeição',
+    time: '15:00',
+    opts: [
+      {
+        title: 'Opção 1 — Shake',
+        items: [
+          '<span class="qty">Carbo:</span> 20g aveia ou farinha de arroz ou bolacha de arroz ou 2 Magic toast',
+          '<span class="qty">Proteína:</span> 30g whey <em>ou</em> 20g whey + 1 ovo',
+          '<span class="qty">Iogurte/Leite:</span> 200ml iogurte light ou 100ml iogurte + 100ml leite zero lactose',
+        ]
+      },
+      {
+        title: 'Opção 2 — Sólido',
+        items: [
+          '<span class="qty">Carbo:</span> 20g tapioca ou 65g cuscuz',
+          '<span class="qty">Proteína:</span> ½ lata atum ou 80g carne moída/frango/lombo/tilápia ou 3 ovos ou 30g carne/frango + 2 ovos',
+          '<span class="qty">Embutidos:</span> 1 fatia presunto ou 20g peito de peru ou 15g lombo canadense ou 10g mortadela/bacon/salame/pepperoni',
+          '<span class="qty">Queijo:</span> 15g Gouda/Prato/Cheddar/Parmesão/Gorgonzola/Brie/provolone, ou 20g requeijão light/cream cheese light/creme de ricota, ou 30g cottage LACFREE',
+        ]
+      },
+      {
+        title: 'Opção 3 — Pão',
+        items: [
+          '<span class="qty">Carbo:</span> 1 fatia pão normal ou ½ pão francês ou ½ Rap 10',
+          '<span class="qty">Proteína:</span> ½ lata atum ou 80g carne moída/frango/lombo/tilápia ou 3 ovos ou 30g carne/frango + 2 ovos',
+          '<span class="qty">Embutidos + Queijo:</span> igual opção 2',
+        ]
+      }
+    ]
+  },
+  {
+    name: '4ª Refeição',
+    time: '18:00',
+    opts: [
+      {
+        title: 'Opção 1 — Shake',
+        items: [
+          '<span class="qty">Carbo:</span> 20g aveia ou farinha de arroz ou bolacha de arroz ou 2 Magic toast',
+          '<span class="qty">Proteína:</span> 30g whey <em>ou</em> 20g whey + 1 ovo',
+          '<span class="qty">Iogurte/Leite:</span> 200ml iogurte light ou 100ml iogurte + 100ml leite zero lactose',
+          '<span class="qty">Fruta:</span> 50g banana ou 100g mamão/abacaxi/maçã/uva ou 150g melancia/morango/melão',
+        ]
+      },
+      {
+        title: 'Opção 2 — Sólido',
+        items: [
+          '<span class="qty">Carbo:</span> 20g tapioca ou 65g cuscuz',
+          '<span class="qty">Proteína:</span> ½ lata atum ou 80g carne moída/frango/lombo/tilápia ou 3 ovos ou 30g carne/frango + 2 ovos',
+          '<span class="qty">Embutidos:</span> 1 fatia presunto ou 20g peito de peru ou 15g lombo canadense ou 10g mortadela/bacon/salame/pepperoni',
+          '<span class="qty">Queijo:</span> 15g Gouda/Prato/Cheddar/Parmesão/Gorgonzola/Brie/provolone, ou 20g requeijão light/cream cheese light/creme de ricota, ou 30g cottage LACFREE',
+          '<span class="qty">Fruta:</span> 50g banana ou 100g mamão/abacaxi/maçã/uva ou 150g melancia/morango/melão',
+        ]
+      },
+      {
+        title: 'Opção 3 — Completa',
+        items: [
+          '<span class="qty">Carbo:</span> 100g arroz ou 100g aipim ou 80g macarrão ou 170g batata inglesa',
+          '<span class="qty">Proteína:</span> 120g carne/frango/lombo/tilápia/salmão/atum ou 4 ovos',
+          '<span class="qty">Salada:</span> 100g alface/rúcula/agrião/espinafre/acelga (se quiser)',
+          '<span class="qty">Legumes:</span> 100g tomate/pepino/abóbora ou 50g abobrinha/cenoura/beterraba/cebola/brócolis/pimentão (se quiser)',
+          '<span class="qty">Fruta:</span> 50g banana ou 100g mamão/abacaxi/maçã/uva ou 150g melancia/morango/melão',
+        ]
+      }
+    ]
+  },
+  {
+    name: '5ª Refeição — Pré-Treino',
+    time: '21:30',
+    opts: [
+      {
+        title: 'Opção 1 — Completa',
+        items: [
+          '<span class="qty">Carbo:</span> 150g arroz ou 150g aipim ou 120g macarrão ou 250g batata inglesa',
+          '<span class="qty">Proteína:</span> 120g carne/frango/lombo/tilápia/salmão/atum ou 4 ovos',
+          '<span class="qty">Salada:</span> 100g alface/rúcula/agrião/espinafre/acelga (se quiser)',
+          '<span class="qty">Legumes:</span> 100g tomate/pepino/abóbora ou 50g abobrinha/cenoura/beterraba/cebola/brócolis/pimentão (se quiser)',
+          '<span class="qty">Queijo:</span> 15g Gouda/Prato/Cheddar/Parmesão/Gorgonzola/Brie/provolone, ou 20g requeijão light/cream cheese light/creme de ricota, ou 30g cottage LACFREE',
+        ]
+      },
+      {
+        title: 'Opção 2 — Shake',
+        items: [
+          '<span class="qty">Carbo:</span> 40g aveia ou farinha de arroz ou bolacha de arroz',
+          '<span class="qty">Proteína:</span> 30g whey <em>ou</em> 20g whey + 1 ovo',
+          '<span class="qty">Iogurte/Leite:</span> 200ml iogurte light ou 100ml iogurte + 100ml leite zero lactose',
+        ]
+      },
+      {
+        title: 'Opção 3 — Lanche',
+        items: [
+          '<span class="qty">Carbo:</span> 2 fatias pão normal ou 1 pão francês ou 1 Rap 10',
+          '<span class="qty">Proteína:</span> ½ lata atum ou 80g carne moída/frango/lombo/tilápia ou 2 ovos ou 30g carne/frango + 1 ovo',
+          '<span class="qty">Embutidos:</span> 1 fatia presunto ou 20g peito de peru ou 15g lombo canadense ou 10g mortadela/bacon/salame/pepperoni',
+          '<span class="qty">Queijo:</span> 15g Gouda/Prato/Cheddar/Parmesão/Gorgonzola/Brie/provolone, ou 20g requeijão light/cream cheese light/creme de ricota, ou 30g cottage LACFREE',
+        ]
+      }
+    ]
+  }
+];
+
+// Half-carb note
+const halfNote = '<div class="half-notice">⚠️ <strong>Dia de carbo reduzido:</strong> diminuir pela metade as quantidades de carboidrato listadas acima.</div>';
+
+function buildMealHTML(mealList, isHalf, isSundayFree) {
+  let html = '';
+  mealList.forEach((meal, idx) => {
+    const isLastAndFree = isSundayFree && idx === 4;
+    html += `<div class="meal-card">
+      <div class="meal-card-header">
+        <div class="meal-name">${meal.name}</div>
+        <div class="meal-time">${meal.time}</div>
+      </div>`;
+    if (isLastAndFree) {
+      html += `<div class="meal-options"><div class="opt-block"><div class="opt-title">🎉 Refeição Livre</div><div class="opt-text">Hoje o jantar é livre! Aproveite sem culpa.</div></div></div>`;
+    } else {
+      html += `<div class="meal-options">`;
+      meal.opts.forEach(opt => {
+        html += `<div class="opt-block"><div class="opt-title">${opt.title}</div>`;
+        opt.items.forEach(item => {
+          html += `<div class="opt-text">${item}</div>`;
+        });
+        html += `</div>`;
+      });
+      html += `</div>`;
+      if (isHalf) html += halfNote;
+    }
+    html += `</div>`;
+  });
+  return html;
+}
+
+const supplHTML = `
+  <div class="suppl-row"><span class="suppl-name">Glifage XR 500mg</span><span class="suppl-dose"><strong>½ comprimido</strong>pós café da manhã</span></div>
+  <div class="suppl-row"><span class="suppl-name">Ômega 3</span><span class="suppl-dose"><strong>3 cápsulas</strong>pós almoço</span></div>
+  <div class="suppl-row"><span class="suppl-name">Multivitamínico</span><span class="suppl-dose"><strong>1 cápsula</strong>1 refeição</span></div>
+  <div class="suppl-row"><span class="suppl-name">Vitamina C 1g</span><span class="suppl-dose"><strong>1 cápsula</strong>1 refeição</span></div>
+  <div class="suppl-row"><span class="suppl-name">Vitamina B12</span><span class="suppl-dose"><strong>1 cápsula</strong>1 refeição</span></div>
+  <div class="suppl-row"><span class="suppl-name">Creatina</span><span class="suppl-dose"><strong>10g</strong></span></div>
+  <div class="suppl-row"><span class="suppl-name">Morosil® 500mg</span><span class="suppl-dose"><strong>1 cápsula</strong>ao acordar</span></div>
+  <div class="suppl-row"><span class="suppl-name">Termogênico Abelhinha 120 Cáps.</span><span class="suppl-dose"><strong>2 cápsulas</strong>antes do treino</span></div>
+  <div class="suppl-row"><span class="suppl-name">Picolinato de Cromo 350mcg</span><span class="suppl-dose"><strong>1 cápsula</strong>90 doses</span></div>
+  <div class="suppl-row"><span class="suppl-name">Citrus Aurantium 500mg</span><span class="suppl-dose"><strong>1 cápsula</strong>60 doses</span></div>
+  <div class="suppl-row"><span class="suppl-name">Capsiate 6mg</span><span class="suppl-dose"><strong>1 cápsula</strong>60 doses</span></div>
+  <div class="suppl-row"><span class="suppl-name">Cactin 500mg</span><span class="suppl-dose"><strong>1 cápsula</strong>antes do treino</span></div>
+  <div class="suppl-row"><span class="suppl-name">Ioimbina 5mg</span><span class="suppl-dose"><strong>1+1 cápsulas</strong>antes treino + após almoço</span></div>
+`;
+
+// Inject diet
+document.getElementById('diet-normal').innerHTML   = buildMealHTML(meals, false, false);
+document.getElementById('diet-half-1').innerHTML   = buildMealHTML(meals, true, false);
+document.getElementById('diet-normal-2').innerHTML = buildMealHTML(meals, false, false);
+document.getElementById('diet-half-3').innerHTML   = buildMealHTML(meals, true, false);
+document.getElementById('diet-normal-4').innerHTML = buildMealHTML(meals, false, false);
+document.getElementById('diet-half-5').innerHTML   = buildMealHTML(meals, true, false);
+document.getElementById('diet-half-6').innerHTML   = buildMealHTML(meals, true, true);
+
+// Inject supplements
+['suppl-copy-1','suppl-copy-2','suppl-copy-3','suppl-copy-4','suppl-copy-5','suppl-copy-6'].forEach(id => {
+  document.getElementById(id).innerHTML = supplHTML;
+});
+</script>
+</body>
+</html>
